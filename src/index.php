@@ -1,6 +1,6 @@
 <?php
 echo "<h1>Test de la Stack Docker Compose</h1>";
-echo "<p>✅ PHP fonctionne (Version " . phpversion() . ")</p>";
+echo "<p>PHP fonctionne (Version " . phpversion() . ")</p>";
 $servername = "db";
 $username = "user";
 $password = "password";
@@ -16,7 +16,7 @@ for ($i = 0; $i < 30; $i++) {
     }
 }
 if (!$connected) {
-    die("<p style='color:red'>❌ Echec de la connexion MySQL</p>");
+    die("<p>Echec connexion MySQL</p>");
 }
-echo "<p style='color:green'>✅ Succès ! PHP est connecté à MySQL.</p>";
+echo "<p>Connexion MySQL OK</p>";
 ?>

@@ -33,7 +33,7 @@ services:
       - "8080:80"
     volumes:
       - ./src:/var/www/html
-      - ./apache/httpd.conf:/usr/local/apache2/conf/httpd.conf
+      - ./apache/my-vhost.conf:/usr/local/apache2/conf/httpd.conf
     depends_on:
       - php
 
