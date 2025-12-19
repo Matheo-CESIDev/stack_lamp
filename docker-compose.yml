@@ -1,0 +1,41 @@
+services:
+  db:
+    image: mysql:8.4
+    container_name: mysql_db
+    environment:
+      MYSQL_DATABASE: company
+      MYSQL_USER: user
+      MYSQL_PASSWORD: password
+      MYSQL_ROOT_PASSWORD: rootpassword
+    volumes:
+      - db_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD-SHELL", "mysqladmin ping -h 127.0.0.1 -uroot -prootpassword --silent"]
+      interval: 3s
+      timeout: 3s
+      retries: 30
+
+  php:
+    build:
+      context: ./php
+    container_name: php_fpm
+    volumes:
+      - ./src:/var/www/html
+    depends_on:
+      db:
+        condition: service_healthy
+    command: sh -c "php-fpm -F"
+
+  apache:
+    image: httpd:2.4
+    container_name: apache_web
+    ports:
+      - "8080:80"
+    volumes:
+      - ./src:/var/www/html
+      - ./apache/httpd.conf:/usr/local/apache2/conf/httpd.conf
+    depends_on:
+      - php
+
+volumes:
+  db_data:
