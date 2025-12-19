@@ -24,7 +24,6 @@ services:
     depends_on:
       db:
         condition: service_healthy
-    command: sh -c "php-fpm -F"
 
   apache:
     image: httpd:2.4

@@ -1,22 +1,18 @@
 <?php
 echo "<h1>Test de la Stack Docker Compose</h1>";
-echo "<p>PHP fonctionne (Version " . phpversion() . ")</p>";
+// 1. Test PHP
+echo "<p>✅ PHP fonctionne (Version " . phpversion() . ")</p>";
+// 2. Test Connexion MySQL
+// Attention : 'db' est le nom du service dans docker-compose.yml !
 $servername = "db";
-$username = "user";
-$password = "password";
+$username = "user"; // Vos identifiants du docker-compose
+$password = "password"; 
 $dbname = "company";
-$connected = false;
-for ($i = 0; $i < 30; $i++) {
-    try {
-        $conn = new mysqli($servername, $username, $password, $dbname);
-        $connected = true;
-        break;
-    } catch (mysqli_sql_exception $e) {
-        usleep(500000);
-    }
+// Création de la connexion
+$conn = new mysqli($servername, $username, $password, $dbname);
+// Vérification
+if ($conn->connect_error) {
+ die("<p style='color:red'>❌ Echec de la connexion MySQL : " . $conn->connect_error . "</p>");
 }
-if (!$connected) {
-    die("<p>Echec connexion MySQL</p>");
-}
-echo "<p>Connexion MySQL OK</p>";
+echo "<p style='color:green'>✅ Succès ! PHP est connecté à MySQL.</p>";
 ?>
